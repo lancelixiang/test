@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="/css/public/base.css"/>
+<script type="text/javascript" src="/js/public/jquery-1.8.3.min.js"></script>
+<style type="text/css">
+.date_picker {
+	text-align: center;
+	width: 140px;
+}
+.date_picker .date_th li, .date_picker .date li {
+	float: left;
+	width: 20px;
+}
+</style>
+<script type="text/javascript">
+	$.fn.extend({
+		date_picker:function(options){
+			//获取要绘制月份的信息
+			var my_date = options&&options.my_date&&new Date(options.my_date) || new Date(),
+			    obj_date = {
+				year  : my_date.getFullYear(),
+				month : my_date.getMonth(),
+				date   : my_date.getDate(),
+				day  : my_date.getDay()
+			},
+			month_dates = [new Date(obj_date.year, obj_date.month, 0).getDate(), new Date(obj_date.year, obj_date.month + 1, 0).getDate()];
+			
+			//输入出绘制信息
+			var $date_picker = $("#date_picker"), _days, str = "";
+			$("#date_picker").html("<div class=\"month\">2014/12</div><ul class=\"date_th clearfix\"><li>日</li><li>一</li><li>二</li><li>三</li><li>四</li><li>五</li><li>六</li></ul><ul class=\"date clearfix\"></ul>");
+			$date_picker.find(".month").html(obj_date.year + "/" + (obj_date.month + 1));
+			//月初日期补齐天数
+			_days = new Date(obj_date.year, obj_date.month, 1).getDay();
+			while(_days > 0){
+				str += "<li>" + (month_dates[0] - _days + 1) + "</li>"
+				_days--;
+			}
+			for(var i = 1; i <= month_dates[1]; i++){
+				str += "<li>" + i + "</li>"
+			}
+			//月未日期补齐天数
+			_days = 7 - new Date(obj_date.year, obj_date.month + 1, 1).getDay();
+			for(var i = 1; i <= _days; i++){
+				str += "<li>" + i + "</li>"
+			}
+			$date_picker.find(".date").html(str);
+		}
+	});	
+	$(function(){
+		$("#date_picker").date_picker();
+	});
+</script>
+<title>收益日历控件</title>
+</head>
+
+<body>
+<div class="date_picker" id="date_picker"></div>
+</body>
+</html>
