@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <title>排行榜</title>
+    <style type="text/css">
+        *{padding:0; margin:0; list-style:none}
+        .box{ width:90%; margin:auto auto; border:1px solid #CCC; border-radius:5px; margin-top:20px}
+        .title{ font-size:16px; font-weight:bolder; text-align:center; height:30px; line-height:30px; color:#C34333 }
+        table{ width:100%; color:#420405}
+        table td,table th{ border-bottom:#CCC dotted 1px; line-height:25px; height:25px; width:33.3%;text-align:center}
+    </style>
+</head>
+<body style="background-size:100%;height:100%;">
+<div class="box">
+    <div class="title">成绩排行榜</div>
+    <table>
+        <tbody>
+        <tr>
+            <th>排名</th>
+            <th>用户</th>
+            <th>成绩</th>
+        </tr>
+
+        <?php foreach($rankList as $key=>$rank):?>
+        <tr>
+            <td><?php echo $key+1;?></td>
+            <!-- strip_tags():去除字符串中的HTML标签 -->
+            <td><?php echo substr($rank['phone'],0,3)."****"substr($rank['phone'],8,4) ?></td>
+            <td><?php echo $rank['score'];?>步</td>
+            <td></td>
+        </tr>
+        <?php endforeach;?>
+
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>
